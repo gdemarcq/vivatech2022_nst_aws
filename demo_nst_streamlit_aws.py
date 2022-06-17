@@ -107,10 +107,7 @@ def demo():
     # ------------ Sidebar
     st.sidebar.image("./images/vivatech.png", use_column_width=True)
     st.sidebar.image("./images/ikomia_logo_512x512.png", use_column_width=True)
-    input_img = None
-    uploaded_input = st.sidebar.file_uploader("Choose input image", on_change=on_input_change)
-    if uploaded_input is not None:
-        input_img = bytesio_to_pil_image(uploaded_input)
+
     # ------------ Main page TITLE
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
@@ -120,13 +117,18 @@ def demo():
     st.markdown("<h2 style='text-align: center; color: grey;'>Choose your favorite painting and download your creation</h2>", unsafe_allow_html=True)
 
     # ------------ Main page BODY
-    col1, col2, col3 = st.columns([1, 3, 3])
+    col1, col2, col3 = st.columns([1, 1, 1])
 
     # Create streamlit placeholder
     img_widget_1 = col1.empty()
     img_widget_2 = col2.empty()
     img_widget_3 = col3.empty()
     download_bt = col3.empty()
+
+    input_img = None
+    uploaded_input = col1.file_uploader("Choose input image", on_change=on_input_change)
+    if uploaded_input is not None:
+        input_img = bytesio_to_pil_image(uploaded_input)
 
     # Grab the paths to all neural style transfer models in our 'models'
     # directory, provided all models end with the '.t7' file extension
